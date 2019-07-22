@@ -14,11 +14,13 @@ import java.util.ArrayList;
 public class UsersDAO {
     //    instrucoes
     private final String create = "INSERT INTO ROOT.Autenticate(login, pass) VALUES (?,?)";
-    private final String query = "SELECT login, passs FROM ROOT.Autenticate WHERE login = ? AND pass = ?" ;
+    private final String query = "SELECT login, pass FROM ROOT.Autenticate WHERE login = ? AND pass = ?" ;
+    
     
     //abre conexao
-    Connection conn;
-    PreparedStatement stmt;
+    private Connection conn;
+    private PreparedStatement stmt;
+    private ResultSet rs;
     
     public UsersDAO(){
         conn = SQLConnection.getConexaoSQL();
@@ -74,15 +76,17 @@ public class UsersDAO {
             stmt = conn.prepareStatement(query);
             stmt.setString(1, user.getLogin());
             stmt.setString(2, user.getPass());
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             
-            //while(rs.next()){
+            while(rs.next()){
                 if(user.getLogin().equalsIgnoreCase(rs.getString("login")) && user.getPass().equalsIgnoreCase(rs.getString("pass")))
                  return "Seja bem-vindo(a)!";
-           // }
+            }
            
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally{
+            conn.close();
         }
         
         return "Usuário ou senha estão incorretos";

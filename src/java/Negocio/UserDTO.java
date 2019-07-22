@@ -19,7 +19,7 @@ public class UserDTO {
         this.pass = pass;
     }
 
-    public void setLogin(String username) {
+    public void setLogin(String login) {
         this.login = login;
     }
 
