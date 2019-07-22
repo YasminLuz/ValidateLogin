@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Yasmin/Documents/NetBeansProjects/WebApplication4/web/frm.jsp</file>
-            <file>file:/C:/Users/Yasmin/Documents/NetBeansProjects/WebApplication4/src/java/br/com/baseconnection/MySQLConnection.java</file>
-            <file>file:/C:/Users/Yasmin/Documents/NetBeansProjects/WebApplication4/src/java/Negocio/UsersDAO.java</file>
-            <file>file:/C:/Users/Yasmin/Documents/NetBeansProjects/WebApplication4/src/java/Negocio/UserDTO.java</file>
-            <file>file:/C:/Users/Yasmin/Documents/NetBeansProjects/WebApplication4/web/index.html</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

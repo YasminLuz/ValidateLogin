@@ -10,18 +10,18 @@ import java.sql.SQLException;
  * @author Yasmin
  */
 
-public class MySQLConnection {
+public class SQLConnection {
  
     public static String status = "Não conectou...";
-    private static String driverName = "com.mysql.jdbc.Driver";
+    private static String driverName = "org.apache.derby.jdbc.EmbeddedDriver";
     private static String serverName = "localhost";    //caminho do servidor do BD
     private static String mydatabase = "SystemUser";        
-    private static final String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
+    private static final String url = "jdbc:derby://" + serverName + "/" + mydatabase;
     private static String username = "root";            
-    private static String password = "12345";   
+    private static String password = "root";   
  
     //Método de Conexão//
-    public static Connection getConexaoMySQL() {
+    public static Connection getConexaoSQL() {
 
         Connection connection = null;          //atributo do tipo Connection
 
@@ -55,7 +55,7 @@ public class MySQLConnection {
     }
 
     //Método que retorna o status da sua conexão
-    public static String statusConection() {
+    public static String statusConnection() {
         return status;
     }
  
@@ -63,7 +63,7 @@ public class MySQLConnection {
     public static boolean CloseConnection() {
  
         try { 
-            MySQLConnection.getConexaoMySQL().close();
+            SQLConnection.getConexaoSQL().close();
  
             return true;
  
@@ -76,9 +76,9 @@ public class MySQLConnection {
 
    //Método que reinicia sua conexão//
  
-    public static java.sql.Connection ReinstartConexao(){
+    public static java.sql.Connection RestartConnection(){
         CloseConnection();
-        return MySQLConnection.getConexaoMySQL();
+        return SQLConnection.getConexaoSQL();
  
     }
  

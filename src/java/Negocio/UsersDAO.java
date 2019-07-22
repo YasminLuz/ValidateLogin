@@ -1,14 +1,11 @@
 package Negocio;
 
-import br.com.baseconnection.MySQLConnection;
+import br.com.baseconnection.SQLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 /**
  *
@@ -16,27 +13,33 @@ import java.util.logging.Logger;
  */
 public class UsersDAO {
     //    instrucoes
-    private final String create = "INSERT INTO Autenticate(username, pass) VALUES (?,?)";
-    private final String query = "SELECT * FROM Autenticate";
+    private final String create = "INSERT INTO ROOT.Autenticate(login, pass) VALUES (?,?)";
+    private final String query = "SELECT login, passs FROM ROOT.Autenticate WHERE login = ? AND pass = ?" ;
     
     //abre conexao
-    Connection conn = MySQLConnection.getConexaoMySQL();
-    PreparedStatement stmt = null;
+    Connection conn;
+    PreparedStatement stmt;
+    
+    public UsersDAO(){
+        conn = SQLConnection.getConexaoSQL();
+        stmt = null;
+    }
     
     public void create(UserDTO vl){
         
         try {
             stmt = conn.prepareStatement(create);
-            stmt.setString(1, vl.getUsername());
+            stmt.setString(1, vl.getLogin());
             stmt.setString(2, vl.getPass());
             
             stmt.executeUpdate();
             
         } catch (SQLException ex) {
             System.err.println("Não foi possivel criar usuario"+ ex);
+            ex.printStackTrace();
             
         } finally{
-            MySQLConnection.CloseConnection();
+            SQLConnection.CloseConnection();
             
         }   
     }
@@ -50,7 +53,7 @@ public class UsersDAO {
             
             while(rs.next()){
                 UserDTO us = new UserDTO();
-                us.setUsername(rs.getString("username"));
+                us.setLogin(rs.getString("login"));
                 us.setPass(rs.getString("pass"));
                 
                 usersList.add(us);
@@ -65,23 +68,23 @@ public class UsersDAO {
         return usersList;
     }
     
-    public String compare(String u, String p){
+    public String compare(UserDTO user) throws SQLException{
             
-        try {
-            conn.prepareStatement(query);
+        try {           
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, user.getLogin());
+            stmt.setString(2, user.getPass());
             ResultSet rs = stmt.executeQuery();
             
-            while(rs.next()){
-                if(u.equalsIgnoreCase(rs.getString("username")) && p.equals(rs.getString("pass")))
+            //while(rs.next()){
+                if(user.getLogin().equalsIgnoreCase(rs.getString("login")) && user.getPass().equalsIgnoreCase(rs.getString("pass")))
                  return "Seja bem-vindo(a)!";
-            }
+           // }
            
-            conn.close();
-    
         } catch (SQLException ex) {
             ex.printStackTrace();
-            
         }
+        
         return "Usuário ou senha estão incorretos";
     }
     

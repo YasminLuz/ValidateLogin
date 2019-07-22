@@ -1,45 +1,42 @@
 package Negocio;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author Yasmin
  */
 public class UserDTO {
-    private String username; 
+    private String login; 
     private String pass;
 
     public UserDTO() {
-    
+       
     }
-    
-    public UserDTO(String username, String pass) {
-        this.username = username;
+       
+    public UserDTO(String login, String pass) {
+        this.login = login;
         this.pass = pass;
     }
 
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLogin(String username) {
+        this.login = login;
     }
 
     public void setPass(String pass) {
         this.pass = pass;
     }
     
-    
-    private String getValidateLogon(){
-        return new UsersDAO().compare(this.getUsername(), this.getPass());
+    public String getValidate() throws SQLException{
+        return new UsersDAO().compare(this);
     }
 
-    public String getUsername() {
-        return username;
+    public String getLogin() {
+        return login;
     }
 
     public String getPass() {
         return pass;
     }
-    
-    
-    
-    
+
 }

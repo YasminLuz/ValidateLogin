@@ -11,9 +11,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
     </head>
-    <body>
-        <jsp:useBean id="user" class="Negocio.UserDTO"/>
+    
+        <jsp:useBean id="user" class="Negocio.UserDTO" scope="page"/>
         <jsp:setProperty name="user" property="*"/>
-        <p> <jsp:getProperty name="user" property="ValidateLogon"/> </p>
-    </body>
+        <p> <jsp:getProperty name="user" property="validate"/> </p>
+    
 </html>
